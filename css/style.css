@@ -1,0 +1,125 @@
+/* .altura{
+    height: 200px;
+    width: 20%;
+}
+.amarillo{
+    background-color: yellow;
+    order: 1;
+    flex-grow: 1;
+}
+.azul{
+    background-color: blue;
+    order: 2;
+    align-self: flex-start;
+    flex-grow: 2;
+}
+.rojo{
+    background-color: red;
+    order: 3;
+    flex-grow: 1;
+}
+.container{
+    height: 400px;
+    display: flex;
+    /*flex-direction: row;
+    flex-wrap: wrap;
+    flex-flow: row nowrap;
+    background-color: aquamarine;
+    justify-content: space-evenly;
+    align-items: center;
+} 
+*/
+@font-face {
+  font-family: "Pokemon./";
+  src: url();
+}
+.busqueda{
+    height: 100px;
+}
+.fondoCarrusel {
+    background-image: url("https://e1.pxfuel.com/desktop-wallpaper/302/432/desktop-wallpaper-pokemon-scenery-pokemon-landscape.jpg");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+}
+/*Multi Slide Boostrap 5*/
+#featureContainer .carousel-inner .carousel-item.active,
+#featureContainer .carousel-inner .carousel-item-next,
+#featureContainer .carousel-inner .carousel-item-prev {
+  display: flex;
+}
+
+/* medium and up screens */
+
+@media (min-width: 768px) {
+  #featureContainer .carousel-inner .carousel-item-end.active,
+  #featureContainer .carousel-inner .carousel-item-next {
+    transform: translateX(25%);
+  }
+
+  #featureContainer .carousel-inner .carousel-item-start.active,
+  #featureContainer .carousel-inner .carousel-item-prev {
+    transform: translateX(-25%);
+  }
+  #featureContainer .card img {
+    width: 100%;
+    height: auto;
+  }
+  #featureContainer .carousel-item {
+    justify-content: space-between;
+  }
+}
+#featureContainer .carousel-inner .carousel-item-end,
+#featureContainer .carousel-inner .carousel-item-start {
+  transform: translateX(0);
+}
+#featureContainer .card {
+  border: 0;
+}
+#featureContainer .card .card-img-overlays {
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+}
+
+.poke-card {
+  position: relative;
+  height: fit-content;
+  max-width: 400px;
+  border-radius: 4px;
+  color: #000;
+  text-align: center;
+  padding: 10px;
+  margin: 0 auto;
+  background-color: #FFF;
+  border: 1px solid black;
+}
+
+.poke-card::before {
+  content: '';
+  background: radial-gradient(black 33%, transparent 33%);
+  background-size: 3px 3px;
+  border-radius: 4px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: -1;
+}
+
+.poke-stats div{
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  padding: 5px;
+  font-size: 18px;
+}
+
+.poke-types div{
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 4px;
+}

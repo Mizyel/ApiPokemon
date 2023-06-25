@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>POKEDEX</title>
+</head>
+
+<body onload="loadUrlPokemon()">
+  <div class="container-fluid ">
+    <div class="row d-flex justify-content-center">
+      <div class="col-6" id="pokemon"></div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+<script>
+  const pokeCard = document.querySelector('[data-poke-card]');
+  const pokeName = document.querySelector('[data-poke-name]');
+  const pokeImgContainer = document.querySelector('[data-poke-img-container]');
+  const pokeId = document.querySelector('[data-poke-id]');
+  const pokeTypes = document.querySelector('[data-poke-types]');
+  const pokeStats = document.querySelector('[data-poke-stats]');
+
+const typeColors = {
+    electric: '#FFEA70',
+    normal: '#B09398',
+    fire: '#FF675C',
+    water: '#0596C7',
+    ice: '#AFEAFD',
+    rock: '#999799',
+    flying: '#7AE7C7',
+    grass: '#4A9681',
+    psychic: '#FFC6D9',
+    ghost: '#561D25',
+    bug: '#A2FAA3',
+    poison: '#795663',
+    ground: '#D2B074',
+    dragon: '#DA627D',
+    steel: '#1D8A99',
+    fighting: '#2F2F2F',
+    default: '#2A1A1F',
+};
+  const searchPokemon = event => {
+    event.preventDefault();
+    const { value } = event.target.pokemon;
+    fetch(`https://pokeapi.co/api/v2/pokemon/${value.toLowerCase()}`)
+      .then(data => data.json())
+      .then(response => renderPokemonData(response))
+      .catch(err => renderNotFound())
+  }
+
+  function renderPokemonData() {
+    const sprite = data.sprites.front_default;
+    const { stats, types } = data;
+
+    pokeName.textContent = data.name;
+    pokeId.textContent = `${data.id}`;
+    setCardColor(types);
+    renderPokemonTypes(types);
+    renderPokemonStats(stats);
+  }
+
+  const setCardColor = types => {
+    const colorOne = typeColors[types[0].type.name];
+    const colorTwo = types[1] ? typeColors[types[1].type.name] : typeColors.default;
+  }
+
+  const renderPokemonTypes = types => {
+    types.forEach(type => {
+        const typeTextElement = document.createElement("div");
+        typeTextElement.style.color = typeColors[type.type.name];
+        typeTextElement.textContent = type.type.name;
+        pokeTypes.appendChild(typeTextElement);
+    });
+}
+
+const renderPokemonStats = stats => {
+  stats.forEach(stat => {
+      const statElement = document.createElement("div");
+      const statElementName = document.createElement("div");
+      const statElementAmount = document.createElement("div");
+      statElementName.textContent = `${data.stat.stat.name}`;
+      statElementAmount.textContent = stat.base_stat;
+      statElement.appendChild(statElementName);
+      statElement.appendChild(statElementAmount);
+      pokeStats.appendChild(statElement);
+  });
+}
+
+
+  function loadUrlPokemon() {
+    let urlPokemon = localStorage.urlPokemon;
+
+    fetch(urlPokemon)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        document.getElementById("pokemon").innerHTML =
+          `
+          <br>
+  <div data-poke-card class="card mb-3 poke-card">
+     <div data-poke-name style="text-align: center;"><h2>${data.name}</h2></div>
+    <div data-poke-img-container class="img-container">
+      <img id="nombre" class="card-img-top" src="/flexblox/poke-shadow.png" alt="..." style="height: 380px;">
+    </div>
+    <div data-poke-id style="text-align: center;"><h4>Nº ${data.id}</h4></div>
+    <div data-poke-types class="poke-types"><h5>${data.types[0].type.name}</h5></div>
+    <div data-poke-stats class="poke-stats">Caballos de fuerza: ...................... ${data.stats[0].base_stat}</div>
+    <div data-poke-stats class="poke-stats">Ataque: ............................................ ${data.stats[1].base_stat}</div>
+    <div data-poke-stats class="poke-stats">Defensa: ............................................ ${data.stats[2].base_stat}</div>
+    <div data-poke-stats class="poke-stats">Ataque Especial: ............................ ${data.stats[3].base_stat}</div>
+    <div data-poke-stats class="poke-stats">Defensa Especial: ........................... ${data.stats[4].base_stat}</div>
+    <div data-poke-stats class="poke-stats">Velocidad: ....................................... ${data.stats[5].base_stat}</div>
+  </div>
+
+         `
+        let nombre = (data.sprites.other["official-artwork"].front_default);
+        document.getElementById("nombre").src = nombre;
+      })
+  }
+</script>
